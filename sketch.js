@@ -2,12 +2,13 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+const Constraint = Matter.Constraint;
 
 var engine,world;
 var ground;
 var trashcan;
 var paper;
-
+var launcher;
 
 function setup() {
 	var canvas = createCanvas(1600, 700);
@@ -16,16 +17,12 @@ function setup() {
 
 	//Create the Bodies Here.
 	ground = new Ground(1600/2,670,1600,20);
-
-    /*trashcan1 = new Trashcan(850,275,30,150);
-	trashcan2 = new Trashcan(950,365,200,30);
-  trashcan3 = new Trashcan(1050,275,30,150);*/
   
   trashcan = new dustbin(1200,650);
 
-  paper = new Paper(200,400,70);
+  paper = new Paper(200,550,60);
   
-  //launcher = new Launcher(paper.body,{x:200, y:50});
+  launcher = new Launcher(paper.body,{x:100, y:350});
 
 	Engine.run(engine);
   
@@ -39,17 +36,18 @@ function draw() {
   ground.display();
   trashcan.display();
   paper.display();
+  launcher.display();
  
 }
 
 function keyPressed() {
   if(keyCode === UP_ARROW) {
-    Matter.Body.applyForce(paper.body,paper.body.position,{x:145,y:-145});
+    Matter.Body.applyForce(paper.body,paper.body.position,{x:85,y:-85});
   }
 }
 
 function mouseDragged() {
-  Matter.body.setPosition(paper.body, {x: mouseX, y: mouseY});
+  Matter.Body.setPosition(paper.body, {x: mouseX, y: mouseY});
 }
 
 function mouseReleased() {
